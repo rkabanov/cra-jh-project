@@ -1,7 +1,6 @@
 import React from "react";
 import "./App.css";
 import PropTypes from "prop-types";
-import pokemon from "./pokemon.json"
 
 const PokemonRow = ({pokemon, selectItem}) => (
   <tr>
@@ -69,7 +68,19 @@ PokemonInfo.propTypes = {
 
 function App() {
   const [filter, filterSet] = React.useState("");
+  const [pokemon, pokemonSet] = React.useState([]);
   const [selectedItem, selectedItemSet] = React.useState(null);
+  const [filterLength, filterLengthSet] = React.useState(0);
+
+  React.useEffect(() =>   {
+    fetch('http://localhost:3000/cra-jh-project/pokemon.json')
+      .then(resp => resp.json())
+      .then(data => pokemonSet(data))
+  }, []);
+
+  React.useEffect(() => {
+    filterLengthSet(filter.length)
+  }, [filter]);
 
   const resetFilter = () => {
     console.log("resetFilter");
@@ -95,6 +106,7 @@ function App() {
       <button onClick={resetFilter}>
         Reset Filter
       </button>
+      L={filterLength}
 
       <div className="pokemon-layout">
         <div>
