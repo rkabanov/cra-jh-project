@@ -73,10 +73,9 @@ function App() {
   const [filterLength, filterLengthSet] = React.useState(0);
 
   React.useEffect(() =>   {
-    // fetch('http://localhost:3000/cra-jh-project/pokemon.json')
-    fetch('/cra-jh-project/pokemon.json')
-      .then(resp => resp.json())
-      .then(data => pokemonSet(data))
+    fetch("/cra-jh-project/pokemon.json")
+      .then((resp) => resp.json())
+      .then((data) => pokemonSet(data))
   }, []);
 
   React.useEffect(() => {
