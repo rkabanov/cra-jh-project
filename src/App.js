@@ -2,6 +2,7 @@ import React from "react";
 import styled from "@emotion/styled"
 import "./App.css";
 import PropTypes from "prop-types";
+import { Button } from "@mui/material";
 
 const PokemonRow = ({pokemon, selectItem}) => (
   <tr>
@@ -9,9 +10,12 @@ const PokemonRow = ({pokemon, selectItem}) => (
     <td>{pokemon.name.english}</td>
     <td>{pokemon.type.join(", ")}</td>
     <td>
-      <button onClick={() => (selectItem(pokemon))}>
+      <Button 
+          variant="outlined"
+          color="success"
+          onClick={() => (selectItem(pokemon))}>
         Select
-      </button>
+      </Button>
     </td>
   </tr>
 );
@@ -42,9 +46,11 @@ const PokemonInfo = ({name, base, hideInfo}) => (
         ))}
       </tbody>
     </table>
-    <button onClick={hideInfo}>
+    <Button 
+        variant="contained"
+        onClick={hideInfo}>
       Hide
-    </button>
+    </Button>
   </div>
 )
 
@@ -87,6 +93,11 @@ const TwoColumnLayout = styled.div`
   column-gap: 0.2 rem;
 `;
 
+const TableHeader = styled.th`
+  text-align: left;
+  font-size: x-large;
+  color: #000088;
+`;
 
 
 function App() {
@@ -118,15 +129,19 @@ function App() {
 
   return (
     <Container>
+
       <Title>Pokemon Search</Title>
 
       <FilterInput 
         value={filter}
         onChange={(evt) => filterSet(evt.target.value)} />
 
-      <button onClick={resetFilter}>
+      <Button variant="outlined"
+        size="small"
+        color="error"
+        onClick={resetFilter}>
         Reset Filter
-      </button>
+      </Button>
       L={filterLength}
 
       <TwoColumnLayout>
@@ -134,10 +149,10 @@ function App() {
           <table width="100%">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Food</th>
-                <th>Select</th>
+                <TableHeader>ID</TableHeader>
+                <TableHeader>Name</TableHeader>
+                <TableHeader>Food</TableHeader>
+                <TableHeader>Select</TableHeader>
               </tr>
             </thead>
             <tbody>
