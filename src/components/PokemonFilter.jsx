@@ -15,7 +15,8 @@ const PokemonFilter = ({filter, filterSet, filterReset}) => (
       value={filter}
       onChange={(evt) => filterSet(evt.target.value)} />
 
-    <Button variant="outlined"
+    <Button sx={{ml: 1, mb: 1}}
+      variant="outlined"
       size="small"
       color="error"
       onClick={filterReset}>
