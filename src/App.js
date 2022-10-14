@@ -5,6 +5,7 @@ import "./App.css";
 import PokemonInfo from "./components/PokemonInfo";
 import PokemonFilter from "./components/PokemonFilter";
 import PokemonTable from "./components/PokemonTable";
+import PokemonContext from "./PokemonContext";
 
 const Container = styled.div`
   margin: auto;
@@ -27,9 +28,10 @@ const TwoColumnLayout = styled.div`
 function App() {
   const [filter, filterSet] = React.useState("");
   const [pokemon, pokemonSet] = React.useState([]);
-  const [selectedItem, selectedItemSet] = React.useState(null);
+  const [selectedPokemon, selectedPokemonSet] = React.useState(null);
 
   React.useEffect(() =>   {
+    document.title = "Pokemon Search";
     fetch("/cra-jh-project/pokemon.json")
       .then((resp) => resp.json())
       .then((data) => pokemonSet(data))
@@ -37,30 +39,38 @@ function App() {
 
   const filterReset = () => {
     filterSet("");
-    selectedItemSet(null)
+    selectedPokemonSet(null)
   };
 
-  const resetSelectedItem = () => {
-    console.log("resetSelectedItem");
-    selectedItemSet(null)
+  const selectedPokemonReset = () => {
+    selectedPokemonSet(null)
   }
 
   return (
-    <Container>
-      <Title>Pokemon Search</Title>
+    <PokemonContext.Provider
+      value={{
+        filter,
+        pokemon,
+        selectedPokemon,
+        filterSet,
+        pokemonSet,
+        selectedPokemonSet,
+        filterReset,
+        selectedPokemonReset
+      }}>
+      <Container>
+        <Title>Pokemon Search</Title>
 
-      <PokemonFilter filter={filter} filterSet={filterSet} filterReset={filterReset} />
+        <PokemonFilter />
 
-      <TwoColumnLayout>
-        <div>
-          <PokemonTable pokemon={pokemon} filter={filter} selectedItemSet={selectedItemSet} />
-        </div>
-
-        {selectedItem && (
-          <PokemonInfo {...selectedItem} hideInfo={resetSelectedItem} />
-        )}
-      </TwoColumnLayout>
-    </Container>
+        <TwoColumnLayout>
+          <div>
+            <PokemonTable />
+          </div>
+          <PokemonInfo />
+        </TwoColumnLayout>
+      </Container>
+    </PokemonContext.Provider>
   );
 }
 

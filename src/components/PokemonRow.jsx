@@ -4,7 +4,7 @@ import { Button } from "@mui/material";
 
 // import PokemonType from '../PokemonType';
 
-const PokemonRow = ({pokemon, selectItem}) => (
+const PokemonRow = ({pokemon, selectPokemon}) => (
   <tr>
     <td>{pokemon.id}</td>
     <td>{pokemon.name.english}</td>
@@ -13,7 +13,7 @@ const PokemonRow = ({pokemon, selectItem}) => (
       <Button 
           variant="outlined"
           color="success"
-          onClick={() => (selectItem(pokemon))}>
+          onClick={() => (selectPokemon(pokemon))}>
         Select
       </Button>
     </td>
@@ -28,7 +28,7 @@ PokemonRow.propTypes = {
       english: PropTypes.string.isRequired
     })
   }),
-  selectItem: PropTypes.func.isRequired
+  selectPokemon: PropTypes.func.isRequired
 }
 
 export default PokemonRow;

@@ -2,6 +2,8 @@ import React from "react";
 import styled from "@emotion/styled";
 
 import { Button } from "@mui/material";
+import { useContext } from "react";
+import PokemonContext from "../PokemonContext";
 
 const FilterInput = styled.input`
   width: 70%;
@@ -9,21 +11,25 @@ const FilterInput = styled.input`
   padding: 0.2rem;
 `;
 
-const PokemonFilter = ({filter, filterSet, filterReset}) => (
-  <div>
-    <FilterInput 
-      value={filter}
-      onChange={(evt) => filterSet(evt.target.value)} />
+const PokemonFilter = () => {
+  const {filter, filterSet, filterReset} = useContext(PokemonContext)
 
-    <Button sx={{ml: 1, mb: 1}}
-      variant="outlined"
-      size="small"
-      color="error"
-      onClick={filterReset}>
-      Reset Filter ({filter.length})
-    </Button>    
-  </div>
-)
+  return (
+    <div>
+      <FilterInput 
+        value={filter}
+        onChange={(evt) => filterSet(evt.target.value)} />
+
+      <Button sx={{ml: 1, mb: 1}}
+        variant="outlined"
+        size="small"
+        color="error"
+        onClick={filterReset}>
+        Reset Filter ({filter.length})
+      </Button>    
+    </div>
+  );
+};
 
 export default PokemonFilter;
 

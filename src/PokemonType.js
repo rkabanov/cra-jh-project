@@ -16,8 +16,7 @@ const PokemonType = PropTypes.shape({
     "Sp. Attack": PropTypes.number.isRequired,
     "Sp. Defense": PropTypes.number.isRequired,
     Speed: PropTypes.number.isRequired
-  }),
-  hideInfo: PropTypes.func.isRequired
+  })
 });
 
 export default PokemonType;
