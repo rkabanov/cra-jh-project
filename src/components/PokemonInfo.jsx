@@ -7,16 +7,14 @@ import PokemonContext from "../PokemonContext";
 import PokemonType from "../PokemonType";
 
 const PokemonInfo = () => {
-  const { selectedPokemon, 
-    selectedPokemonReset 
-  } = useContext(PokemonContext);
+  const { state: { selectedPokemon }, dispatch } = useContext(PokemonContext);
 
   const nameRef = useRef(null);
 
   React.useEffect(() => {
     document.title = selectedPokemon ? selectedPokemon.name.english : 'Pokemon Search';
     if (nameRef.current) {
-      nameRef.current.scrollIntoView({behavior: 'smooth'});
+      nameRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [selectedPokemon]);
 
@@ -34,9 +32,9 @@ const PokemonInfo = () => {
           ))}
         </tbody>
       </table>
-      <Button 
-          variant="contained"
-          onClick={selectedPokemonReset}>
+      <Button
+        variant="contained"
+        onClick={() => dispatch({ type: 'SET_SELECTED_POKEMON', payload: null})}>
         Hide
       </Button>
     </div>

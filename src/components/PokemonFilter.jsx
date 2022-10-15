@@ -12,21 +12,21 @@ const FilterInput = styled.input`
 `;
 
 const PokemonFilter = () => {
-  const {filter, filterSet, filterReset} = useContext(PokemonContext)
+  const { state: { filter }, dispatch } = useContext(PokemonContext);
 
   return (
     <div>
-      <FilterInput 
+      <FilterInput
         value={filter}
-        onChange={(evt) => filterSet(evt.target.value)} />
+        onChange={(evt) => dispatch({ type: 'SET_FILTER', payload: evt.target.value })} />
 
-      <Button sx={{ml: 1, mb: 1}}
+      <Button sx={{ ml: 1, mb: 1 }}
         variant="outlined"
         size="small"
         color="error"
-        onClick={filterReset}>
+        onClick={() => dispatch({ type: 'SET_FILTER', payload: '' })}>
         Reset Filter ({filter.length})
-      </Button>    
+      </Button>
     </div>
   );
 };

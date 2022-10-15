@@ -11,7 +11,7 @@ const TableHeader = styled.th`
 `;
 
 const PokemonTable = () => {
-  const {pokemon, filter, selectedPokemonSet} = useContext(PokemonContext);
+  const {state: {pokemon, filter}, dispatch} = useContext(PokemonContext);
 
   return (
     <table width="100%">
@@ -30,7 +30,7 @@ const PokemonTable = () => {
         .map((pokemon) => (
           <PokemonRow key={pokemon.id}
             pokemon={pokemon}
-            selectPokemon={(p) => (selectedPokemonSet(p)) }
+            selectPokemon={(p) => dispatch({type: 'SET_SELECTED_POKEMON', payload: p}) }
           />
       ))}
     </tbody>
